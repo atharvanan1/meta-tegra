@@ -9,7 +9,9 @@ TEGRA_CHIPREV ?= "2"
 NVPMODEL ?= "nvpmodel_t194_p3668"
 TEGRA_AUDIO_DEVICE ?= "tegrahdaxaviernx"
 
-MACHINEOVERRIDES = "xavier-nx:${MACHINE}"
+# Fixes issues with adding xavier-nx to MACHINEOVERRIDES
+# This is borrowed from https://github.com/openembedded/openembedded-core/blob/e9d825a780d68b485a71e880397ab2db8e0ac3ca/meta/conf/machine/include/soc-family.inc#L3
+MACHINEOVERRIDES =. "${@['', 'xavier-nx:']['xavier-nx' != '']}"
 require conf/machine/include/tegra194.inc
 
 KERNEL_DEVICETREE ?= "_ddot_/_ddot_/_ddot_/_ddot_/nvidia/platform/t19x/jakku/kernel-dts/tegra194-p3668-all-p3509-0000.dtb"
